@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Highlighter</title>
+    <style>
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0 auto;
+            font-family: Arial, sans-serif;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 1, 0.1);
+            padding: 20px;
+            box-sizing: border-box;
+            width: 60%; /* Adjust width as needed */
+            background-color: #15dc96;
+            border-radius: 10px;
+        }
+
+        #showCitiesBtn {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #cityList {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 20px;
+            text-align: center;
+
+        }
+
+        #cityList li {
+            margin-bottom: 10px;
+            color:white;
+            cursor: pointer;
+            background-color: #ec1313e6;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        #cityList li:hover {
+            background-color: #c13f9c;
+        }
+
+        #map {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            margin-left: 10px;
+            padding: 20px;
+            color:white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #1a5db3;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button id="showCitiesBtn">Cities</button>
+        <div id="citiesContainer" class="hidden">
+            <ul id="cityList">
+                <!-- City names will be added dynamically here -->
+            </ul>
+        </div>
+        <div id="map">
+            <!-- Placeholder for city location -->
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const citiesData = [
+                { name: 'New York', country: 'USA' },
+                { name: 'London', country: 'UK' },
+                { name: 'Tokyo', country: 'Japan' },
+                { name: 'Paris', country: 'France' },
+                { name: 'Amaravati', country: 'Andhra Pradesh' },
+                { name: 'Sydney', country: 'Australia' },
+                { name: 'Los Angeles', country: 'USA' },
+                { name: 'Berlin', country: 'Germany' },
+                { name: 'Beijing', country: 'China' },
+                { name: 'Moscow', country: 'Russia' },
+                { name: 'Cairo', country: 'Egypt' },
+                { name: 'Rio de Janeiro', country: 'Brazil' }
+            ];
+
+            const showCitiesBtn = document.getElementById('showCitiesBtn');
+            const citiesContainer = document.getElementById('citiesContainer');
+            const cityList = document.getElementById('cityList');
+            const map = document.getElementById('map');
+
+            showCitiesBtn.addEventListener('click', function() {
+                showCitiesBtn.style.display = 'none'; // Hide the button
+                citiesContainer.classList.remove('hidden');
+
+                // Clear existing list items
+                cityList.innerHTML = '';
+
+                // Populate city list
+                citiesData.forEach(function(cityData) {
+                    const li = document.createElement('li');
+                    li.textContent = cityData.name;
+                    li.addEventListener('click', function() {
+                        highlightCity(cityData);
+                    });
+                    cityList.appendChild(li);
+                });
+            });
+
+            function highlightCity(cityData) {
+                // Show the map and update its content
+                map.style.display = 'block';
+                map.textContent = `${cityData.name} is in ${cityData.country}`;
+            }
+        });
+    </script>
+</body>
+</html>
